@@ -1,6 +1,7 @@
 package sunny.sunny_juju_review.api;
 
 import org.springframework.web.bind.annotation.*;
+import sunny.sunny_juju_review.api.request.CreateAndEditRestaurantRequest;
 
 @RestController
 public class RestaurantApi {
@@ -18,15 +19,15 @@ public class RestaurantApi {
 
 
     @PostMapping("/restaurant")
-    public String createRestaurant() {
-        return "This is Restaurant";
+    public String createRestaurant(@RequestBody CreateAndEditRestaurantRequest request) {
+        return "This is Restaurant"+request.getName()+request.getAddress()+request.getMenus().get(0).getName();
     }
 
-    @PutMapping("/restaurants/{restaurantId}")
-    public String editRestaurant(@PathVariable Long restaurantId) {
-        return "This is Restaurant" + restaurantId;
+    @PutMapping("/restaurant/{restaurantId}")
+    public String editRestaurant(@PathVariable Long restaurantId,
+                                 @RequestBody CreateAndEditRestaurantRequest request) {
+        return "This is Restaurant" + request.getName() + request.getAddress()+restaurantId;
     }
-
     @DeleteMapping("/restaurant/{restaurantId}")
     public String deleteRestaurant(@PathVariable Long restaurantId) {
         return "This is Restaurant" + restaurantId;
